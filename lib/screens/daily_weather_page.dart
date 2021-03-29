@@ -12,6 +12,7 @@ class DailyWeatherPage extends StatelessWidget {
   final String weatherIcon;
 
   DailyWeatherPage({
+    Key key,
     this.date,
     this.dayTemperature,
     this.nightTemperature,
@@ -21,12 +22,28 @@ class DailyWeatherPage extends StatelessWidget {
     this.feelsLikeDay,
     this.feelsLikeNight,
     this.weatherIcon,
-  });
+  }) : super(key: key);
+
+  String weekdayToString(int day) {
+    var currentDate = DateTime.fromMillisecondsSinceEpoch(day * 1000);
+
+    Map weekdays = {
+      1: "Понедельник",
+      2: "Вторник",
+      3: "Среда",
+      4: "Четверг",
+      5: "Пятница",
+      6: "Суббота",
+      7: "Воскресенье",
+    };
+
+    return "${weekdays[currentDate.weekday]}, ${currentDate.day}";
+  }
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 30.0),
+      padding: const EdgeInsets.symmetric(horizontal: 15.0),
       child: Column(
         children: <Widget>[
           SizedBox(height: MediaQuery.of(context).size.height / 30),
@@ -41,7 +58,7 @@ class DailyWeatherPage extends StatelessWidget {
             ),
             subtitle: Text('$weatherDescription'),
             title: Text(
-              '$date',
+              weekdayToString(date),
               style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),
             ),
             expandedAlignment: Alignment.centerLeft,
@@ -69,6 +86,7 @@ class DailyWeatherPage extends StatelessWidget {
                   ),
                 ],
               ),
+              SizedBox(height: MediaQuery.of(context).size.height / 30),
             ],
           ),
         ],

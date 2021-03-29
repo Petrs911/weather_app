@@ -1,34 +1,49 @@
 import 'package:flutter/material.dart';
+import 'daily_weather_page.dart';
+import '../provider/fetch_daily_data.dart';
+import '../models/daily_weather_data.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
+  @override
+  _HomeScreenState createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  Future<List<DailyWeatherData>> dailyData;
+
+  @override
+  void initState() {
+    super.initState();
+    dailyData = fetchDailyData();
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 30.0),
-      child: Column(
-        children: <Widget>[
-          SizedBox(height: MediaQuery.of(context).size.height / 3),
-          ExpansionTile(
-            trailing:
-                Image.network('http://openweathermap.org/img/wn/13n@2x.png'),
-            subtitle: Text('Снег'),
-            title: Text(
-              'Cреда 3\u00B0',
-              style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),
-            ),
-            children: <Widget>[
-              Column(
-                mainAxisSize: MainAxisSize.max,
-                crossAxisAlignment: CrossAxisAlignment.end,
-                children: <Widget>[
-                  Text('3\u00B0'),
-                  Text('-1\u00B0'),
-                ],
+    return Scaffold(
+      appBar: AppBar(title: Text('Weather')),
+      body: FutureBuilder<List<DailyWeatherData>>(
+        future: dailyData,
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            return ListView.builder(
+              itemCount: snapshot.data.length,
+              itemBuilder: (context, index) => DailyWeatherPage(
+                date: snapshot.data[index].date,
+                dayTemperature: snapshot.data[index].dayTemperature,
+                nightTemperature: snapshot.data[index].nightTemperature,
+                humidity: snapshot.data[index].humidity,
+                windSpeed: snapshot.data[index].windSpeed,
+                weatherDescription: snapshot.data[index].weatherDescription,
+                feelsLikeDay: snapshot.data[index].feelsLikeDay,
+                feelsLikeNight: snapshot.data[index].feelsLikeNight,
+                weatherIcon: snapshot.data[index].weatherIcon,
               ),
-              Text('Some data'),
-            ],
-          ),
-        ],
+            );
+          } else if (snapshot.hasError) {
+            return Text('${snapshot.hasError}');
+          }
+          return CircularProgressIndicator();
+        },
       ),
     );
   }

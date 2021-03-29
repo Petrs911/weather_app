@@ -3,8 +3,8 @@ class DailyWeatherData {
   final int dayTemperature;
   final int nightTemperature;
   final int humidity;
+  final double windSpeed;
   final String weatherDescription;
-  final int pressure;
   final int feelsLikeDay;
   final int feelsLikeNight;
   final String weatherIcon;
@@ -14,8 +14,8 @@ class DailyWeatherData {
       this.dayTemperature,
       this.nightTemperature,
       this.humidity,
+      this.windSpeed,
       this.weatherDescription,
-      this.pressure,
       this.feelsLikeDay,
       this.feelsLikeNight,
       this.weatherIcon});
@@ -26,11 +26,11 @@ class DailyWeatherData {
       dayTemperature: json['temp']['day'].round(),
       nightTemperature: json['temp']['night'].round(),
       humidity: json['humidity'],
-      weatherDescription: json['weather']['description'],
-      pressure: json['[ressure'],
+      windSpeed: json['wind_speed'],
+      weatherDescription: json['weather'][0]['description'],
       feelsLikeDay: json['feels_like']['day'].round(),
       feelsLikeNight: json['feels_like']['night'].round(),
-      weatherIcon: json['weather']['icon'],
+      weatherIcon: json['weather'][0]['icon'],
     );
   }
 }

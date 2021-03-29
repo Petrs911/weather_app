@@ -2,7 +2,7 @@ import 'package:geolocator/geolocator.dart';
 import 'package:geocoding/geocoding.dart';
 
 class GetUserLocation {
-  Future<Position> getCurrentPosition() async {
+  Future<Position> getCurrentLocation() async {
     var currentPosition = await Geolocator.getCurrentPosition(
         desiredAccuracy: LocationAccuracy.best,
         forceAndroidLocationManager: true);
@@ -12,7 +12,7 @@ class GetUserLocation {
   Future<String> getAddressFromLatLng() async {
     var currentAddress;
     try {
-      var currentPosition = await getCurrentPosition();
+      var currentPosition = await getCurrentLocation();
       List<Placemark> placemarks = await placemarkFromCoordinates(
           currentPosition.latitude, currentPosition.longitude);
 
