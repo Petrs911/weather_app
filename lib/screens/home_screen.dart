@@ -40,9 +40,9 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             );
           } else if (snapshot.hasError) {
-            return Text('${snapshot.hasError}');
+            return Center(child: Text('${snapshot.hasError}'));
           }
-          return CircularProgressIndicator();
+          return Center(child: CircularProgressIndicator());
         },
       ),
     );
