@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'timestamp_converter_to_hour.dart';
 
-class DailyWeatherPageModel extends StatelessWidget {
+class HourlyWeatherPageModel extends StatelessWidget {
   final int date;
   final int dayTemperature;
   final int feelsLikeDay;
@@ -11,7 +11,7 @@ class DailyWeatherPageModel extends StatelessWidget {
   final String weatherDescription;
   final String weatherIcon;
 
-  DailyWeatherPageModel({
+  HourlyWeatherPageModel({
     Key key,
     this.date,
     this.dayTemperature,

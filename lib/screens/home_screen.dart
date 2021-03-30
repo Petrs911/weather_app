@@ -1,49 +1,52 @@
 import 'package:flutter/material.dart';
-import 'view_model/daily_weather_page_model.dart';
-import '../provider/fetch_daily_data.dart';
-import '../models/daily_weather_data.dart';
+import 'hourly_weather_page.dart';
+import 'daily_weather_page.dart';
 
-class HomeScreen extends StatefulWidget {
-  @override
-  _HomeScreenState createState() => _HomeScreenState();
-}
-
-class _HomeScreenState extends State<HomeScreen> {
-  Future<List<DailyWeatherData>> dailyData;
-
-  @override
-  void initState() {
-    super.initState();
-    dailyData = fetchDailyData();
-  }
+class HomeScreen extends StatelessWidget {
+  final PageController _controller = PageController(initialPage: 0);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Weather')),
-      body: FutureBuilder<List<DailyWeatherData>>(
-        future: dailyData,
-        builder: (context, snapshot) {
-          if (snapshot.hasData) {
-            return ListView.builder(
-              itemCount: snapshot.data.length,
-              itemBuilder: (context, index) => DailyWeatherPageModel(
-                date: snapshot.data[index].date,
-                dayTemperature: snapshot.data[index].dayTemperature,
-                nightTemperature: snapshot.data[index].nightTemperature,
-                humidity: snapshot.data[index].humidity,
-                windSpeed: snapshot.data[index].windSpeed,
-                weatherDescription: snapshot.data[index].weatherDescription,
-                feelsLikeDay: snapshot.data[index].feelsLikeDay,
-                feelsLikeNight: snapshot.data[index].feelsLikeNight,
-                weatherIcon: snapshot.data[index].weatherIcon,
+      appBar: AppBar(
+        title: Text('Weather'),
+        actions: <Widget>[
+          PopupMenuButton(itemBuilder: (BuildContext context) {
+            return [
+              PopupMenuItem(
+                child: TextButton(
+                  child: Text('Weather in days'),
+                  onPressed: () {
+                    _controller.animateToPage(
+                      1,
+                      duration: Duration(seconds: 0),
+                      curve: Curves.decelerate,
+                    );
+                  },
+                ),
               ),
-            );
-          } else if (snapshot.hasError) {
-            return Center(child: Text('Error: ${snapshot.error}'));
-          }
-          return Center(child: CircularProgressIndicator());
-        },
+              PopupMenuItem(
+                child: TextButton(
+                  child: Text('Weather in hours'),
+                  onPressed: () {
+                    _controller.animateToPage(
+                      0,
+                      duration: Duration(seconds: 1),
+                      curve: Curves.decelerate,
+                    );
+                  },
+                ),
+              ),
+            ];
+          })
+        ],
+      ),
+      body: PageView(
+        controller: _controller,
+        children: <Widget>[
+          DailyWeatherPage(),
+          HourlyWeatherPage(),
+        ],
       ),
     );
   }
