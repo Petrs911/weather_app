@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../app_localizations/app_localizations.dart';
 import 'timestamp_converter.dart';
 
 class DailyWeatherPageModel extends StatelessWidget {
@@ -57,16 +58,20 @@ class DailyWeatherPageModel extends StatelessWidget {
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
-                      Text('Ветер'),
-                      Text('Влажность'),
-                      Text('Днем ощущается как'),
-                      Text('Ночью ощущается как'),
+                      Text(
+                          AppLocalizations.of(context).translate('wind_speed')),
+                      Text(AppLocalizations.of(context).translate('humid')),
+                      Text(AppLocalizations.of(context)
+                          .translate('feels_like_day')),
+                      Text(AppLocalizations.of(context)
+                          .translate('feels_like_night')),
                     ],
                   ),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
-                      Text('$windSpeed км/ч'),
+                      Text(
+                          '$windSpeed ${AppLocalizations.of(context).translate('speed')}'),
                       Text('$humidity%'),
                       Text('$feelsLikeDay\u00B0'),
                       Text('$feelsLikeNight\u00B0'),

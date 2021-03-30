@@ -1,0 +1,18 @@
+{
+    "country_lang": "en",
+    "1day": "Mondey",
+    "2day": "Tuesday",
+    "3day": "Wednesday",
+    "4day": "Thursday",
+    "5day": "Friday",
+    "6day": "Saturday",
+    "7day": "Sunday",
+    "wind_speed": "Wind speed",
+    "humid": "Humidity",
+    "feels_like_night": "By night it feels like",
+    "feels_like_day": "By day it feels like",
+    "feels_like": "Feels like",
+    "weather_hour_button": "Weather in hours",
+    "weather_day_button": "Weather in days",
+    "speed": "m/s"
+}

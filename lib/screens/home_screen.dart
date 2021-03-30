@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+
+import '../app_localizations/app_localizations.dart';
 import 'hourly_weather_page.dart';
 import 'daily_weather_page.dart';
 
@@ -15,11 +17,12 @@ class HomeScreen extends StatelessWidget {
             return [
               PopupMenuItem(
                 child: TextButton(
-                  child: Text('Weather in days'),
+                  child: Text(AppLocalizations.of(context)
+                      .translate('weather_day_button')),
                   onPressed: () {
                     _controller.animateToPage(
-                      1,
-                      duration: Duration(seconds: 0),
+                      0,
+                      duration: Duration(seconds: 1),
                       curve: Curves.decelerate,
                     );
                   },
@@ -27,10 +30,11 @@ class HomeScreen extends StatelessWidget {
               ),
               PopupMenuItem(
                 child: TextButton(
-                  child: Text('Weather in hours'),
+                  child: Text(AppLocalizations.of(context)
+                      .translate('weather_hour_button')),
                   onPressed: () {
                     _controller.animateToPage(
-                      0,
+                      1,
                       duration: Duration(seconds: 1),
                       curve: Curves.decelerate,
                     );
