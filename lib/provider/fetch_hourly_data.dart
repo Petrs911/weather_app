@@ -1,7 +1,6 @@
 import '../models/hourly_weather_data.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
-import 'get_users_location.dart';
 
 Future<List<HourlyWeatherData>> fetchHourlyData(
     [double longitude = 36.25, double latitude = 50.0]) async {

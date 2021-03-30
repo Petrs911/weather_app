@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'daily_weather_page.dart';
+import 'view_model/daily_weather_page_model.dart';
 import '../provider/fetch_daily_data.dart';
 import '../models/daily_weather_data.dart';
 
@@ -27,7 +27,7 @@ class _HomeScreenState extends State<HomeScreen> {
           if (snapshot.hasData) {
             return ListView.builder(
               itemCount: snapshot.data.length,
-              itemBuilder: (context, index) => DailyWeatherPage(
+              itemBuilder: (context, index) => DailyWeatherPageModel(
                 date: snapshot.data[index].date,
                 dayTemperature: snapshot.data[index].dayTemperature,
                 nightTemperature: snapshot.data[index].nightTemperature,
