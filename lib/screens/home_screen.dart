@@ -3,15 +3,42 @@ import 'package:flutter/material.dart';
 import '../app_localizations/app_localizations.dart';
 import 'hourly_weather_page.dart';
 import 'daily_weather_page.dart';
+import '../provider/get_users_location.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
+  @override
+  _HomeScreenState createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
   final PageController _controller = PageController(initialPage: 0);
+
+  var getCurrentLocation = GetUserLocation();
+
+  String currentCity = '';
+
+  @override
+  void initState() {
+    super.initState();
+    getCity();
+  }
+
+  Future<void> getCity() async {
+    try {
+      var city = await getCurrentLocation.getAddressFromLatLng();
+      setState(() {
+        currentCity = city;
+      });
+    } catch (e) {
+      print(e);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Weather'),
+        title: Text(currentCity == '' ? 'Kyiv' : currentCity),
         actions: <Widget>[
           PopupMenuButton(itemBuilder: (BuildContext context) {
             return [
@@ -47,6 +74,7 @@ class HomeScreen extends StatelessWidget {
       ),
       body: PageView(
         controller: _controller,
+        physics: NeverScrollableScrollPhysics(),
         children: <Widget>[
           DailyWeatherPage(),
           HourlyWeatherPage(),

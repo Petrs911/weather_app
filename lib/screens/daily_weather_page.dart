@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+
 import 'view_model/daily_weather_page_model.dart';
+import '../provider/get_users_location.dart';
 import '../provider/fetch_daily_data.dart';
 import '../models/daily_weather_data.dart';
 
@@ -11,10 +13,37 @@ class DailyWeatherPage extends StatefulWidget {
 class _DailyWeatherPage extends State<DailyWeatherPage> {
   Future<List<DailyWeatherData>> dailyData;
 
+  double longitude;
+  double latitude;
+
+  GetUserLocation location = GetUserLocation();
+
   @override
   void initState() {
     super.initState();
-    dailyData = fetchDailyData();
+    getLocation();
+  }
+
+  Future<void> getLocation() async {
+    try {
+      var position = await location.getCurrentLocation();
+      setState(() {
+        latitude = position.latitude;
+        longitude = position.longitude;
+      });
+    } catch (e) {
+      print(e);
+    }
+
+    if (latitude != null && longitude != null) {
+      setState(() {
+        dailyData = fetchDailyData(longitude, latitude);
+      });
+    } else {
+      setState(() {
+        dailyData = fetchDailyData();
+      });
+    }
   }
 
   @override

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
 import 'app_localizations/app_localizations.dart';
-import 'screens/home_screen.dart';
+import 'screens/splash_screen.dart';
 
 void main() {
   runApp(MaterialApp(
@@ -26,6 +26,6 @@ void main() {
       return supportedLocales.first;
     },
     theme: ThemeData(primarySwatch: Colors.blue, brightness: Brightness.dark),
-    home: HomeScreen(),
+    home: SplashScreen(),
   ));
 }

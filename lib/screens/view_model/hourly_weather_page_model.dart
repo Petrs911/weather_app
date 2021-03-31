@@ -36,10 +36,9 @@ class HourlyWeatherPageModel extends StatelessWidget {
           ExpansionTile(
             leading: Image.network(
                 'http://openweathermap.org/img/wn/$weatherIcon@2x.png'),
-            trailing: Column(
-              children: [
-                Text('$dayTemperature\u00B0'),
-              ],
+            trailing: Text(
+              '$dayTemperature\u00B0',
+              style: TextStyle(fontSize: 20.0),
             ),
             subtitle: Text('$weatherDescription'),
             title: Text(
