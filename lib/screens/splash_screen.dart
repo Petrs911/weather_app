@@ -33,6 +33,12 @@ class _SplashScreen extends State<SplashScreen> {
           width: double.infinity,
           height: double.infinity,
           color: Colors.blueAccent,
+          child: Center(
+            child: Text(
+              "Weather app",
+              style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),
+            ),
+          ),
         ),
       ),
     );

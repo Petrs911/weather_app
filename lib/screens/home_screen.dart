@@ -15,7 +15,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   var getCurrentLocation = GetUserLocation();
 
-  String currentCity = '';
+  String currentCity = 'Київ';
 
   @override
   void initState() {
@@ -27,7 +27,9 @@ class _HomeScreenState extends State<HomeScreen> {
     try {
       var city = await getCurrentLocation.getAddressFromLatLng();
       setState(() {
-        currentCity = city;
+        if (city != null) {
+          currentCity = city;
+        }
       });
     } catch (e) {
       print(e);
@@ -38,7 +40,7 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(currentCity == '' ? 'Kyiv' : currentCity),
+        title: Text(currentCity),
         actions: <Widget>[
           PopupMenuButton(itemBuilder: (BuildContext context) {
             return [

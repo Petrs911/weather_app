@@ -21,7 +21,7 @@ class GetUserLocation {
       currentAddress = place.locality;
       return currentAddress;
     } catch (e) {
-      return e.toString();
+      print(e);
     }
   }
 }
