@@ -13,19 +13,35 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   final PageController _controller = PageController(initialPage: 0);
 
-  var getCurrentLocation = GetUserLocation();
+  var location = GetUserLocation();
 
   String currentCity = 'Київ';
+
+  double longitude = 30.523;
+  double latitude = 50.45;
 
   @override
   void initState() {
     super.initState();
     getCity();
+    getLocation();
+  }
+
+  Future<void> getLocation() async {
+    try {
+      var position = await location.getCurrentLocation();
+      setState(() {
+        latitude = position.latitude;
+        longitude = position.longitude;
+      });
+    } catch (e) {
+      print(e);
+    }
   }
 
   Future<void> getCity() async {
     try {
-      var city = await getCurrentLocation.getAddressFromLatLng();
+      var city = await location.getAddressFromLatLng();
       setState(() {
         if (city != null) {
           currentCity = city;
@@ -78,8 +94,8 @@ class _HomeScreenState extends State<HomeScreen> {
         controller: _controller,
         physics: NeverScrollableScrollPhysics(),
         children: <Widget>[
-          DailyWeatherPage(),
-          HourlyWeatherPage(),
+          DailyWeatherPage(latitude, longitude),
+          HourlyWeatherPage(latitude, longitude),
         ],
       ),
     );

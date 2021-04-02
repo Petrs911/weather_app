@@ -1,10 +1,17 @@
 import 'package:flutter/material.dart';
 import 'view_model/hourly_weather_page_model.dart';
 import '../provider/fetch_hourly_data.dart';
-import '../provider/get_users_location.dart';
+import '../provider/convert_hourly_data_to_list.dart';
 import '../models/hourly_weather_data.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:connectivity/connectivity.dart';
 
 class HourlyWeatherPage extends StatefulWidget {
+  final double longitude;
+  final double latitude;
+
+  HourlyWeatherPage(this.latitude, this.longitude);
+
   @override
   _HourlyWeatherPage createState() => _HourlyWeatherPage();
 }
@@ -12,37 +19,40 @@ class HourlyWeatherPage extends StatefulWidget {
 class _HourlyWeatherPage extends State<HourlyWeatherPage> {
   Future<List<HourlyWeatherData>> hourlyData;
 
-  double longitude;
-  double latitude;
-
-  GetUserLocation location = GetUserLocation();
+  Future<String> currentData;
 
   @override
   void initState() {
     super.initState();
-    getLocation();
+    _checkInternetConection();
   }
 
-  Future<void> getLocation() async {
-    try {
-      var position = await location.getCurrentLocation();
-      setState(() {
-        latitude = position.latitude;
-        longitude = position.longitude;
-      });
-    } catch (e) {
-      print(e);
-    }
+  Future<void> _checkInternetConection() async {
+    var connectivityResult = await (Connectivity().checkConnectivity());
 
-    if (latitude != null && longitude != null) {
+    if (connectivityResult == ConnectivityResult.mobile ||
+        connectivityResult == ConnectivityResult.wifi) {
       setState(() {
-        hourlyData = fetchHourlyData(longitude, latitude);
+        currentData = fetchHourlyData(widget.longitude, widget.latitude);
+        hourlyData = hourlyDataToList(currentData);
+        _saveData(currentData);
       });
     } else {
       setState(() {
-        hourlyData = fetchHourlyData();
+        hourlyData = hourlyDataToList(_getData());
       });
     }
+  }
+
+  Future<void> _saveData(Future<String> data) async {
+    final prefs = await SharedPreferences.getInstance();
+    prefs.setString('data', await data);
+  }
+
+  Future<String> _getData() async {
+    final prefs = await SharedPreferences.getInstance();
+    String localData = prefs.getString('data');
+    return localData;
   }
 
   @override
