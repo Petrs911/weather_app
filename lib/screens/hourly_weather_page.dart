@@ -47,12 +47,12 @@ class _HourlyWeatherPage extends State<HourlyWeatherPage> {
 
   Future<void> _saveData(Future<String> data) async {
     final prefs = await SharedPreferences.getInstance();
-    prefs.setString('data', await data);
+    prefs.setString('hourlyData', await data);
   }
 
   Future<String> _getData() async {
     final prefs = await SharedPreferences.getInstance();
-    String localData = prefs.getString('data');
+    String localData = prefs.getString('hourlyData');
     return localData;
   }
 
