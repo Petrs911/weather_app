@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../../app_localizations/app_localizations.dart';
 import 'timestamp_converter.dart';
+import '../../app_localizations/app_localizations.dart';
 
 class DailyWeatherPageModel extends StatelessWidget {
   final int date;

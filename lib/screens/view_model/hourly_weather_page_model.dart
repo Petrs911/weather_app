@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../../app_localizations/app_localizations.dart';
 import 'timestamp_converter_to_hour.dart';
+import '../../app_localizations/app_localizations.dart';
 
 class HourlyWeatherPageModel extends StatelessWidget {
   final int date;

@@ -1,10 +1,11 @@
-import 'package:flutter/material.dart';
 import 'package:connectivity/connectivity.dart';
-import 'view_model/daily_weather_page_model.dart';
-import '../provider/fetch_daily_data.dart';
-import '../models/daily_weather_data.dart';
-import '../provider/convert_daily_data_to_list.dart';
+import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+import 'view_model/daily_weather_page_model.dart';
+import '../models/daily_weather_data.dart';
+import '../provider/fetch_daily_data.dart';
+import '../provider/convert_daily_data_to_list.dart';
 
 class DailyWeatherPage extends StatefulWidget {
   final double longitude;

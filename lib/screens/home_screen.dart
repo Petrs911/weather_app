@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
-import '../app_localizations/app_localizations.dart';
-import 'hourly_weather_page.dart';
 import 'daily_weather_page.dart';
+import 'hourly_weather_page.dart';
+import '../app_localizations/app_localizations.dart';
 import '../provider/get_users_location.dart';
 
 class HomeScreen extends StatefulWidget {

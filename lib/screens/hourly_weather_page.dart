@@ -1,10 +1,11 @@
-import 'package:flutter/material.dart';
-import 'view_model/hourly_weather_page_model.dart';
-import '../provider/fetch_hourly_data.dart';
-import '../provider/convert_hourly_data_to_list.dart';
-import '../models/hourly_weather_data.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:connectivity/connectivity.dart';
+import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
+import 'view_model/hourly_weather_page_model.dart';
+import '../models/hourly_weather_data.dart';
+import '../provider/convert_hourly_data_to_list.dart';
+import '../provider/fetch_hourly_data.dart';
 
 class HourlyWeatherPage extends StatefulWidget {
   final double longitude;

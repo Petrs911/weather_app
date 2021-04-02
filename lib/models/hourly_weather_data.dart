@@ -23,7 +23,7 @@ class HourlyWeatherData {
       temperature: json['temp'].round(),
       feelsLike: json['feels_like'].round(),
       humidity: json['humidity'],
-      windSpeed: json['wind_speed'],
+      windSpeed: json['wind_speed'].toDouble(),
       weatherDescription: json['weather'][0]['description'],
       weatherIcon: json['weather'][0]['icon'],
     );

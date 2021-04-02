@@ -1,5 +1,6 @@
-import 'package:http/http.dart' as http;
 import 'dart:io';
+
+import 'package:http/http.dart' as http;
 
 Future<String> fetchDailyData(double longitude, double latitude) async {
   String lang;
