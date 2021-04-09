@@ -26,7 +26,7 @@ class DailyWeatherData {
       dayTemperature: json['temp']['day'].round(),
       nightTemperature: json['temp']['night'].round(),
       humidity: json['humidity'],
-      windSpeed: json['wind_speed'],
+      windSpeed: json['wind_speed'].toDouble(),
       weatherDescription: json['weather'][0]['description'],
       feelsLikeDay: json['feels_like']['day'].round(),
       feelsLikeNight: json['feels_like']['night'].round(),
