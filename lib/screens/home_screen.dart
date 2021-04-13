@@ -42,11 +42,11 @@ class _HomeScreenState extends State<HomeScreen> {
   Future<void> getCity() async {
     try {
       var city = await location.getAddressFromLatLng();
-      setState(() {
-        if (city != null) {
+      if (city != null) {
+        setState(() {
           currentCity = city;
-        }
-      });
+        });
+      }
     } catch (e) {
       print(e);
     }

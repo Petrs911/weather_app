@@ -28,6 +28,15 @@ class _DailyWeatherPage extends State<DailyWeatherPage> {
     _checkInternetConection();
   }
 
+  @override
+  void didUpdateWidget(DailyWeatherPage oldWidget) {
+    if (oldWidget.latitude != widget.latitude &&
+        oldWidget.longitude != widget.longitude) {
+      _checkInternetConection();
+    }
+    super.didUpdateWidget(oldWidget);
+  }
+
   Future<void> _checkInternetConection() async {
     var connectivityResult = await (Connectivity().checkConnectivity());
 
